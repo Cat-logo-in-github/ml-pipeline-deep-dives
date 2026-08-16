@@ -1,385 +1,390 @@
-# Atlas:A personal knowledge system for turning learning into structured content and automating publishing pipelines.
+# ML Pipeline Deep Dives
 
-CLI:
+> **Exploring advanced machine learning pipelines through real-world problems, research implementations, and competition systems.**
 
-![alt text](images/image-4.png)
+This repository is a collection of **deep dives into interesting machine learning pipelines**.
 
-# Why Atlas?
+The goal isn't to build another ML framework or collect isolated model implementations. Instead, this project is about taking complicated ML systems and **pulling them apart**:
 
-Modern learning produces fragmented information:
+* What problem is the pipeline actually solving?
+* Why is the pipeline structured the way it is?
+* What happens to the data at every stage?
+* Why were particular architectures chosen?
+* How do seemingly independent models fit together?
+* Where does training happen?
+* How does information flow through the system?
+* What are the important engineering and modeling decisions?
+* Could the same ideas be applied somewhere else?
 
-- Notes are disconnected
-- Research is difficult to organize
-- Simulations and visualizations are separate from explanations
-- Publishing knowledge requires repeated manual work
-
-Atlas creates a pipeline where learning becomes structured, visual, and shareable.
-Atlas is a framework for organizing knowledge, simulating (read CONTRACTmd to learn what a simulation is) visuals and publishing said knowledge.
-
-It transforms:
-
-```
-                    Idea / Question
-                           ↓
-                    Knowledge Module (all user puts effort into)
-                           ↓
-                    AI powered automation Pipeline
-                           ↓
-              ┌────────────┴────────────┐
-              ↓                         ↓
-       Narrative Content          Simulation
-              ↓                         ↓
-       Blog + Social Posts       Interactive Assets
-              └────────────┬────────────┘
-                           ↓
-                    Atlas Website
-                           ↓
-                 Automated Distribution
-```
+The emphasis is on understanding the **whole pipeline**, rather than just studying the final model.
 
 ---
 
-# What is Atlas?
+## What is a "deep dive"?
 
-Most knowledge systems focus on storing information.
+Modern ML systems are rarely just:
 
-Atlas focuses on building understanding and coherant narratives.
-
-Instead of disconnected notes, Atlas creates structured knowledge modules that combine:
-
-- Explanations
-- Research
-- Simulations
-- Visualizations
-- Published documentation
-- Engaging social media content
-
-Each module becomes a self-contained piece of knowledge.
-
----
-
-# Features
-
-## Knowledge Modules
-
-Atlas organizes knowledge into independent modules.
-
-A module can represent:
-
-- Scientific concepts
-- Engineering topics
-- Algorithms
-- Biological systems
-- Mathematical ideas
-- Personal research
-
-Example:
-
-```
-module-name/
-
-├── knowledge.md
-│
-├── blog.md
-│
-├── notebook.ipynb (optional for ppl who like coding)
-│
-├── simulation/
-│
-├── assets/
-│
-└── metadata
+```text
+data → model → prediction
 ```
 
----
+Interesting systems often look more like:
 
-## AI Research-Simulation Pipeline
-
-Atlas includes an AI-assisted simulation workflow that help turn an idea eg: 'a graph of all visual information processing parts of the brain' into an interactive visual you can incorporate in your website.
-
-**Supported outputs:**
-- Figures
-- Graphs
-- Animations
-- Datasets
-- Interactive models
-
-The pipeline:
-
-```
-Scientific/ Research Idea
-    ↓
-Research Agent (atlas make research)
-    ↓
-Structured Simulation guide (atlas make simulation)
-    ↓
-Coressponding interactive visual generated
-```
-
-Simulations are Atlas-managed experiments.
-They follow the Atlas simulation contract and are executed through the Atlas runtime:
-This allows Atlas to manage rendering, previews, and exports consistently.
-
-Do not run simulations as regular python files.
-Use terminal command `atlas run module_name simulation_name` instead
-
----
-
-## Website Generation
-
-Atlas converts knowledge modules into a browsable website.
-
-Workflow:
-
-```
-Module (atlas create)
+```text
+Raw Data
    ↓
-Build
+Preprocessing
    ↓
-Published Knowledge Atlas
-```
-
-Generated websites contain:
-
-- Knowledge pages
-- Navigation
-- Index pages
-- Visualizations
-- Interactive content
-
----
-
-
-## Content Generation
-
-Atlas converts knowledge into posts, social media content, assets like images and quizzes.
-
-Workflow:
-
-```
-Module (atlas create)
+Representation / Feature Extraction
    ↓
-Generate Artifacts (raw coontent)
+Intermediate Model
    ↓
-Published Knowledge Atlas with content links creating a network of your socials
+Structured Representation
+   ↓
+Another Model
+   ↓
+Post-processing
+   ↓
+Final Prediction
 ```
 
-Generated content contains:
+And sometimes several of these stages interact in non-obvious ways.
 
-- LinkedIn Posts
-- Reddit/ Social Media posts
-- Youtube video outline
-- Instagram video script
-- Quiz
-- Images (for assets or social media content)
-- Interactive content
+This repository explores those systems **stage by stage**.
 
+For each pipeline, the aim is to understand both the **machine learning concepts** and the **engineering decisions** that make the complete system work.
 
-# Installation: Note this repo works best on Windows machines. Others may need additional configuration that has not been provided
-
-Clone the repository:
-
-```bash
-git clone https://github.com/Cat-logo-in-github/Atlas-Intelligence
-
-cd directory_name
-```
-
-Create a virtual environment:
-
-```bash
-python -m venv .venv
-```
-
-Activate it:
-
-Windows:
-
-```bash
-.venv\Scripts\activate
-```
-
-Linux/macOS:
-
-```bash
-source .venv/bin/activate
-```
-
-Install dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
-You'll also need to install Ollama Qwen 2.5b for the generation pipeline. Alternatively, you can change it to use your own model. But to just try as is refer to:
-
-https://ai-ollama.github.io/qwen-2-5.html
-
-Ensure Ollama is running and the model is listening to port 11434
-
-Further details will be shared later
 ---
 
-# Quick Start
+# Current Deep Dives
 
-Create a module:
+## 🧬 Biohub Kaggle Competition Pipeline
 
-```bash
-atlas create "write module_name here"
+**Problem:** Cell tracking and lineage reconstruction in 3D microscopy.
+
+This deep dive explores a pipeline designed for the **Biohub Kaggle competition**, where the objective is to detect, track, and link cells across time in 3D microscopy data, including identifying cell divisions and reconstructing cell lineages.
+
+### Pipeline
+
+```text
+3D Microscopy Volumes
+        │
+        ▼
+Image Preprocessing
+        │
+        ▼
+Temporal U-Net
+        │
+        ▼
+Dense Voxel Feature Maps
+        │
+        ▼
+Node / Cell Features
+        │
+        ▼
+Simple Node Transformer
+        │
+        ▼
+Graph Construction
+        │
+        ▼
+Edge Prediction
+        │
+        ▼
+Cell Tracking / Lineage
 ```
 
-Generate research/simulation:
+The deep dive currently explores components including:
 
-```bash
-atlas make research
-```
-```bash
-atlas make simulation module_name
-```
+* **Image preprocessing**
+* **Temporal U-Net**
+* **Dense voxel feature maps**
+* **Node feature construction**
+* **Transformer-based node processing**
+* **Graph construction**
+* **Edge prediction**
+* **End-to-end pipeline behaviour**
 
-Generate content/posts:
+The project also includes an introductory exploration of the `.zarr` and `.geff` data formats used by the competition.
 
-```bash
-atlas generate module_name
-```
+### Explore the deep dive
 
-Build the website and start content publishing pipeline:
+👉 **[Read the Biohub Kaggle Competition Pipeline](https://cat-logo-in-github.github.io/ml-pipeline-deep-dives/biohub-kaggle-competition-pipeline/)**
 
-```bash
-atlas publish module_name
+The repository breaks the pipeline into smaller explorations:
+
+```text
+modules/
+└── biohub-kaggle-competition-pipeline/
+    ├── image-preprocessing/
+    ├── temporal-unet/
+    ├── simple-node-transformer/
+    ├── graph-construction/
+    └── complete-pipeline-analysis/
 ```
 
 ---
 
-# Summary
+# What I'm Exploring
 
-```
-Atlas
+Future deep dives will focus on pipelines where the interesting part isn't simply the architecture, but **how multiple ideas are composed into a working system**.
 
-├── Module System
-│
-├── Research-Simulation Pipeline
-│
-├── Content Generation Pipeline
-│
-├── Website Builder
-│
-└── Publishing System
-```
+Areas of interest include:
 
-## Module System
+### Computer Vision
 
-The core unit of knowledge.
+* 3D vision
+* Video understanding
+* Object tracking
+* Segmentation pipelines
+* Multi-stage detection systems
+* Vision transformers
+* Medical and scientific imaging
 
-Modules contain the information, experiments, and resources related to a topic.
+### Graph Machine Learning
 
-## Research-Simulation Engine
+* Graph neural networks
+* Dynamic graphs
+* Graph construction
+* Node and edge prediction
+* Temporal graph learning
+* Graph transformers
 
-A framework for creating computational models and visual explanations.
+### Sequence & Temporal Modeling
 
-## Website Builder
+* Temporal CNNs
+* Transformers
+* State-space models
+* Video models
+* Long-context architectures
+* Multi-frame prediction
 
-Transforms knowledge modules into a navigable website.
+### Scientific Machine Learning
 
-## Publishing System
+* Biology
+* Microscopy
+* Molecular modelling
+* Physics-inspired ML
+* Scientific competitions
+* ML systems built around scientific datasets
 
-Publishes content to help your content gain traction.
+### Competition & Research Pipelines
+
+A particular interest is understanding **strong competition and research solutions**.
+
+Rather than only asking:
+
+> "What model did they use?"
+
+the deeper questions are:
+
+> "Why does this pipeline work?"
+
+and:
+
+> "How do all of these components interact?"
 
 ---
 
-# Philosophy
+# How These Deep Dives Work
 
-Atlas follows one principle:
+Each investigation tries to move through several levels of understanding.
 
-> Knowledge should be explored, not managed.
+### 1. Understand the Problem
 
-The workflow:
+Before looking at the model, understand what the system is actually trying to predict.
 
+```text
+Real-world problem
+       ↓
+ML formulation
+       ↓
+Prediction target
 ```
-Curiosity
+
+### 2. Understand the Data
+
+What does the raw data look like?
+
+How is it represented?
+
+What information is available during training versus inference?
+
+What preprocessing is required?
+
+```text
+Raw Dataset
     ↓
-Understanding
+File Formats
     ↓
-Explanation
+Samples
     ↓
-Creation of 1 module
+Features / Labels
+    ↓
+Model Inputs
 ```
 
-The goal is not collecting notes.
+### 3. Trace the Pipeline
 
-The goal is building a personal intelligence system that turns your knowledge into a structured Atlas of Information. Automating publishing, setting reminders, checking modules for issues and streamlining notes.
+Follow the data through the entire system.
+
+```text
+Input
+ ↓
+Preprocessing
+ ↓
+Model A
+ ↓
+Intermediate Representation
+ ↓
+Model B
+ ↓
+Structured Output
+ ↓
+Final Prediction
+```
+
+### 4. Understand Individual Components
+
+Each major component gets its own investigation where useful.
+
+For example:
+
+```text
+Temporal U-Net
+     ↓
+What problem does it solve?
+     ↓
+What goes into it?
+     ↓
+What comes out?
+     ↓
+Why U-Net?
+     ↓
+Why temporal information?
+```
+
+### 5. Reconstruct the Full System
+
+Individual components only become meaningful when they are connected.
+
+The final stage is therefore to reconstruct the complete pipeline and understand the information flow from input to output.
 
 ---
 
-# Example Project
+# Repository Structure
 
-Completed Module Structure:
+The repository separates the **pipeline investigations** from the generated/published website.
 
-![alt text](images/image.png)
+```text
+ml-pipeline-deep-dives/
+│
+├── modules/
+│       ├── <pipeline>/
+│       ├── <component>/
+│       ├── <component>/
+│       └── complete-pipeline-analysis/
+│
+├── website/
+│   └── ...
+│
+├── Readme.md
+├── pyproject.toml
+└── requirements.txt
+```
+The current structure is inefficient but because currently it has 1 pipeline only, improvements were not required. Atlas v2.0 should use a more efficient structure (not out yet)
 
-Website Index:
+The `modules/` directory contains the actual research/deep-dive material, while `website/` contains the published presentation of that material.
 
-![alt text](images/image-1.png)
+The published site is generated using Quartz and is available here:
 
-Blog page with Simulations (embedding knowledge needed):
-
-![alt text](images/image-2.png)
-
-Simulation Page:
-
-![alt text](images/image-3.png)
-
-
-Generated posts:
-[posts.md](modules/gradient-descent/generated/posts.md)
-
-Generated Quiz:
-[quiz.md](modules/gradient-descent/generated/quiz.md)
-
-Generated images:
-![linkedln image](modules/gradient-descent/assets/gradient-descent_linkedin_1.png)
-
-Generated Instagram:
-[instagram.md](modules/gradient-descent/generated/instagram.md)
-
-A demonstration of Atlas converting a research topic into:
-
-- Structured knowledge
-- Interactive simulations
-- Website content
-- Social media artifacts
+👉 **[ML Pipeline Deep Dives — Website](https://cat-logo-in-github.github.io/ml-pipeline-deep-dives/)**
 
 ---
 
-# Status
+# Current Status
 
-Atlas is currently in active development.
+🚧 **Early stage / actively expanding**
 
-Version: v1.0
+Currently, the repository contains **one complete pipeline investigation**:
 
-The core pipeline is functional:
-- Knowledge modules
-- AI research generation
-- Simulation framework
-- Website generation
-- Content generation
-- Publishing automation
+* 🧬 Biohub Kaggle Competition Pipeline
 
-## Future
+The intention is for this repository to grow into a collection of progressively more interesting ML systems.
 
-- Improved knowledge graphs
-- Better semantic search
-- Automated knowledge connections
-- Automated simulation making for complicated models
+Each new deep dive will ideally add another example of a fundamentally different pipeline design.
+
+---
+
+# Why This Repository Exists
+
+Machine learning tutorials often isolate concepts:
+
+```text
+CNN
+Transformer
+GNN
+U-Net
+Attention
+```
+
+Those concepts are useful, but real ML systems rarely use them in isolation.
+
+A production or competition pipeline might combine:
+
+```text
+Computer Vision
+      +
+Temporal Modeling
+      +
+Transformers
+      +
+Graph Construction
+      +
+Graph Prediction
+      +
+Post-processing
+```
+
+The interesting engineering happens **between the boxes**.
+
+This repository exists to explore those connections.
+
+> **Don't just learn the model. Understand the pipeline.**
+
+---
+
+# Roadmap
+
+The repository will gradually expand into deeper and more varied ML systems.
+
+Possible future investigations include:
+
+* [ ] More computer vision pipelines
+* [ ] More graph ML pipelines
+* [ ] Multimodal ML systems
+* [ ] Long-context / sequence pipelines
+* [ ] Scientific ML systems
+* [ ] Interesting Kaggle solutions
+* [ ] Research-paper implementations
+* [ ] Production ML architectures
+* [ ] Comparisons between alternative pipeline designs
+* [ ] End-to-end visualizations of complex pipelines
+
+The roadmap is intentionally open-ended. The main criterion for adding a pipeline is simple:
+
+**Is there something interesting to learn by taking it apart?**
+
+---
+
+# Contributing
+
+This is primarily a personal exploration/research repository, but interesting pipelines, papers, competitions, implementations, or ideas for future deep dives are welcome.
+
+If you find a particularly interesting ML system that would be worth dissecting, feel free to open an issue or discussion.
 
 ---
 
 # License
 
-MIT License
-
----
-
-# Contact
-
-parshatwork@gmail.com
+MIT
